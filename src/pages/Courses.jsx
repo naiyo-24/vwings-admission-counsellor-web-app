@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../components/ToastContext';
 import { glassmorphicStyles } from '../theme';
 import { Book, Clock, Users, Loader2, AlertCircle, ArrowLeft, Download, Share2 } from 'lucide-react';
 
@@ -9,6 +10,7 @@ const fallbackImages = [
 ];
 
 const Courses = () => {
+  const toast = useToast();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -120,7 +122,7 @@ const Courses = () => {
           </button>
           <button 
             onClick={() => {
-              alert(`Downloading brochure for ${selectedCourse.course_name}...`);
+              toast.error(`Downloading brochure for ${selectedCourse.course_name}...`);
               // In production, this would trigger a file download from backend
             }}
             className="px-6 py-3 rounded-lg bg-white flex items-center gap-2 text-[#370E62] font-bold hover:bg-gray-100 transition-colors"
@@ -133,10 +135,10 @@ const Courses = () => {
               const link = `https://vwings24x7.com/courses/${selectedCourse.course_id || selectedCourse.course_code}`;
               if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(link)
-                  .then(() => alert(`Course link copied to clipboard!\n${link}`))
-                  .catch(err => alert(`Failed to copy link: ${err}`));
+                  .then(() => toast.success(`Course link copied to clipboard!\n${link}`))
+                  .catch(err => toast.error(`Failed to copy link: ${err}`));
               } else {
-                alert(`Share this link:\n${link}`);
+                toast.error(`Share this link:\n${link}`);
               }
             }}
             className="px-6 py-3 rounded-lg border border-white/20 text-white flex items-center gap-2 font-bold hover:bg-white/10 transition-colors"
@@ -208,3 +210,4 @@ const Courses = () => {
 };
 
 export default Courses;
+

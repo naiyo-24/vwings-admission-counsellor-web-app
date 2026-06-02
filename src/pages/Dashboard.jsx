@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { glassmorphicStyles } from '../theme';
 import { Users, UserCheck, Receipt, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import WelcomeModalNew from '../components/WelcomeModalNew';
 
 const Dashboard = () => {
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   const [data, setData] = useState({
     enquiriesCount: 0,
     admissionsCount: 0,
@@ -14,12 +16,28 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome');
+    if (!hasSeenWelcome) {
+      setIsWelcomeModalOpen(true);
+      sessionStorage.setItem('hasSeenWelcome', 'true');
+    }
+
     const fetchDashboardData = async () => {
       try {
+        const storedData = localStorage.getItem('counsellorData');
+        let counsellorId = null;
+        if (storedData) {
+          try {
+            counsellorId = JSON.parse(storedData).counsellor_id;
+          } catch (e) {
+            console.error("Failed to parse counsellor data");
+          }
+        }
+
         const [enqRes, admRes, commRes] = await Promise.all([
           fetch('http://localhost:8000/api/admission-enquiries/get-all'),
           fetch('http://localhost:8000/api/students/get-all'),
-          fetch('http://localhost:8000/api/commissions/get-all')
+          fetch(`http://localhost:8000/api/commissions/payouts${counsellorId ? `?counsellor_id=${counsellorId}` : ''}`)
         ]);
 
         if (!enqRes.ok || !admRes.ok || !commRes.ok) {
@@ -30,18 +48,9 @@ const Dashboard = () => {
         const admissions = await admRes.json();
         const commissions = await commRes.json();
         
-        const storedData = localStorage.getItem('counsellorData');
-        let counsellorId = null;
-        if (storedData) {
-          try {
-            counsellorId = JSON.parse(storedData).counsellor_id;
-          } catch (e) {
-            console.error("Failed to parse counsellor data");
-          }
-        }
-        
         const filteredEnquiries = counsellorId ? enquiries.filter(e => e.counsellor_id === counsellorId) : [];
         const filteredAdmissions = counsellorId ? admissions.filter(a => a.counsellor_id === counsellorId) : [];
+        // Payouts are already filtered by the API if counsellorId is provided, but we can double check
         const filteredCommissions = counsellorId ? commissions.filter(c => c.counsellor_id === counsellorId) : [];
 
         // Sort enquiries to get recent ones
@@ -97,6 +106,7 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
+      <WelcomeModalNew isOpen={isWelcomeModalOpen} onClose={() => setIsWelcomeModalOpen(false)} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {stats.map((stat, i) => (
           <div key={i} className={`p-6 rounded-2xl ${glassmorphicStyles.card} flex flex-col`}>

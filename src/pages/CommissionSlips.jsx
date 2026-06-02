@@ -8,11 +8,8 @@ const CommissionSlips = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCommissions = async () => {
+    const fetchPayouts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/commissions/get-all');
-        if (!response.ok) throw new Error('Failed to fetch commission slips');
-        const data = await response.json();
         const storedData = localStorage.getItem('counsellorData');
         let counsellorId = null;
         if (storedData) {
@@ -23,18 +20,23 @@ const CommissionSlips = () => {
           }
         }
         
-        const filteredData = counsellorId ? data.filter(c => c.counsellor_id === counsellorId) : [];
-        setCommissions(filteredData);
+        if (!counsellorId) return;
+
+        const response = await fetch(`http://localhost:8000/api/commissions/payouts?counsellor_id=${counsellorId}`);
+        if (!response.ok) throw new Error('Failed to fetch payout slips');
+        const data = await response.json();
+        
+        setCommissions(data);
         setError(null);
       } catch (err) {
-        console.error("Error fetching commissions:", err);
-        setError("Failed to load commission slips. Please try again later.");
+        console.error("Error fetching payouts:", err);
+        setError("Failed to load payout slips. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCommissions();
+    fetchPayouts();
   }, []);
 
   const getMonthYearString = (month, year) => {
@@ -46,18 +48,13 @@ const CommissionSlips = () => {
     }
   };
 
-  const handleDownload = (filePath, commissionId) => {
-    if (!filePath) {
-      alert("No file attached to this commission slip.");
-      return;
-    }
-    const downloadUrl = filePath.startsWith('http') ? filePath : `http://localhost:8000/${filePath}`;
-    window.open(downloadUrl, '_blank');
+  const handleDownload = (payoutId) => {
+    window.open(`http://localhost:8000/api/commissions/payouts/download/${payoutId}`, '_blank');
   };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">Monthly Commission Slips</h1>
+      <h1 className="text-2xl font-bold text-white">Payout Slips</h1>
       
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         {loading ? (
@@ -76,24 +73,26 @@ const CommissionSlips = () => {
         ) : (
           <div className="space-y-4">
             {commissions.map((slip) => (
-              <div key={slip.commission_id} className="flex flex-col md:flex-row justify-between items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div key={slip.id} className="flex flex-col md:flex-row justify-between items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                 <div className="flex items-center gap-4 w-full md:w-auto mb-4 md:mb-0">
                   <div className="p-3 bg-[#370E62]/50 rounded-lg text-[#F5C300]">
                     <FileText size={24} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">{getMonthYearString(slip.month, slip.year)}</h3>
-                    <p className="text-sm text-gray-400">Slip ID: {slip.commission_id}</p>
+                    <h3 className="text-lg font-bold text-white">Payout: {slip.payout_no}</h3>
+                    <p className="text-sm text-gray-400">Date: {new Date(slip.created_at).toLocaleDateString()}</p>
+                    <p className="text-sm text-gray-400">Reference: {slip.reference_no || 'N/A'}</p>
+                    <p className="text-sm text-[#F5C300] font-bold">Amount: ₹{slip.amount}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-between w-full md:w-auto gap-8">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm text-gray-400">Status</p>
-                    <p className="text-green-400 font-medium">Paid</p>
+                    <p className="text-green-400 font-medium">{slip.status}</p>
                   </div>
                   <button 
-                    onClick={() => handleDownload(slip.file_path, slip.commission_id)}
+                    onClick={() => handleDownload(slip.id)}
                     className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors border border-white/20"
                   >
                     <Download size={18} /> Download PDF

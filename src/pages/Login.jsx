@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { glassmorphicStyles } from '../theme';
 import { LogIn, Loader } from 'lucide-react';
+import { useToast } from '../components/ToastContext';
 
 const Login = ({ onLogin }) => {
+  const toast = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
     
     if (email && password) {
       setIsLoading(true);
@@ -26,14 +26,14 @@ const Login = ({ onLogin }) => {
 
         if (response.ok) {
           const data = await response.json();
-          // Optionally you can pass 'data' to onLogin(data) if you have an AuthContext to store user details
+          toast.success('Login successful! Welcome to the Counsellor Portal.');
           onLogin(data);
         } else {
           const errorData = await response.json();
-          setError(errorData.detail || 'Invalid email or password');
+          toast.error(errorData.detail || 'Invalid email or password');
         }
       } catch (err) {
-        setError('Network error. Please make sure the server is running.');
+        toast.error('Network error. Please make sure the server is running.');
       } finally {
         setIsLoading(false);
       }
@@ -49,11 +49,7 @@ const Login = ({ onLogin }) => {
           <p className="text-gray-300 text-sm mt-1">Admission Counsellor Portal</p>
         </div>
 
-        {error && (
-          <div className="bg-red-500/20 border border-red-500 text-white p-3 rounded-lg text-sm text-center mb-6">
-            {error}
-          </div>
-        )}
+
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

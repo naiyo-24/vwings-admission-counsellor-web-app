@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flag, Eye, Globe, Phone, Mail, MapPin } from 'lucide-react';
+import { Flag, Eye, Globe, Phone, Mail, MapPin, Award, Users, BookOpen, Target, Sparkles, Heart } from 'lucide-react';
 import { glassmorphicStyles } from '../theme';
 
 const containerVariants = {
@@ -25,93 +25,124 @@ const AboutUs = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="max-w-4xl mx-auto flex flex-col gap-6 pb-10"
+      style={{ width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '60px' }}
     >
-      <motion.div variants={itemVariants} className={`${glassmorphicStyles.card} p-8`}>
-        <h2 className="text-[#F5C300] text-3xl font-bold mb-2">VWINGS24x7</h2>
-        <p className="text-gray-300 mb-6">Empowering Teachers, Enriching Minds</p>
-        <div className="flex gap-3">
-          <motion.div whileHover={{ scale: 1.05 }} className="bg-white/10 px-4 py-1.5 rounded-lg font-bold text-white">48 Courses</motion.div>
-          <motion.div whileHover={{ scale: 1.05 }} className="bg-white/10 px-4 py-1.5 rounded-lg font-bold text-white">24 Partners</motion.div>
+      {/* Hero Section */}
+      <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[32px] p-6 md:p-[60px_40px] text-center border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] bg-gradient-to-br from-[#1E1B4B]/80 to-[#581C87]/60">
+        <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(245, 195, 0, 0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: '-20%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
+        
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2, type: 'spring' }} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'rgba(245, 195, 0, 0.15)', borderRadius: '20px', color: 'var(--primary-yellow)', fontWeight: 'bold', marginBottom: '24px' }}>
+            <Sparkles size={16} /> Welcome to VWings24x7
+          </motion.div>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
+            Empowering Educators,<br/>Enriching Minds
+          </h1>
+          <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto' }}>
+            We are dedicated to providing world-class resources, training, and support to transform the future of education.
+          </p>
         </div>
       </motion.div>
 
-      <motion.div variants={itemVariants} className={`${glassmorphicStyles.card} p-8`}>
-        <div className="flex flex-col gap-6 mb-10">
-          <motion.div whileHover={{ x: 10 }} className="flex gap-4 transition-transform">
-            <div className="bg-white/10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-              <Flag className="text-[#F5C300]" />
+      {/* Stats Grid */}
+      <motion.div variants={itemVariants} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+        {[
+          { icon: Users, label: 'Active Partners', value: '24+', color: '#3b82f6' },
+          { icon: Award, label: 'Years Experience', value: '10+', color: '#10b981' },
+          { icon: Target, label: 'Placement Rate', value: '92%', color: '#f59e0b' },
+          { icon: BookOpen, label: 'Premium Courses', value: '48+', color: '#ec4899' }
+        ].map((stat, idx) => (
+          <motion.div key={idx} whileHover={{ y: -5, scale: 1.02 }} className={`rounded-2xl p-6 text-center flex flex-col items-center gap-4 ${glassmorphicStyles.card}`} style={{ borderTop: `2px solid ${stat.color}40` }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <stat.icon size={28} color={stat.color} />
             </div>
             <div>
-              <h3 className="text-white font-bold mb-2 text-lg">Mission</h3>
-              <p className="text-gray-400">Provide quality teacher training and resources.</p>
+              <h2 style={{ fontSize: '2rem', margin: '0 0 4px 0', color: 'white', fontWeight: 'bold' }}>{stat.value}</h2>
+              <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</p>
             </div>
           </motion.div>
-          
-          <motion.div whileHover={{ x: 10 }} className="flex gap-4 transition-transform">
-            <div className="bg-white/10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-              <Eye className="text-[#F5C300]" />
+        ))}
+      </motion.div>
+
+      {/* Mission & Vision Split */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} className={`rounded-2xl p-10 relative overflow-hidden ${glassmorphicStyles.card}`}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)', zIndex: 0 }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+              <Flag color="#3b82f6" size={24} />
             </div>
+            <h2 style={{ fontSize: '1.8rem', marginBottom: '16px', color: 'white' }}>Our Mission</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '1.05rem' }}>
+              To provide unparalleled quality in teacher training and educational resources. We strive to create an ecosystem where educators can thrive, innovate, and make a lasting impact on students worldwide.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} className={`rounded-2xl p-10 relative overflow-hidden ${glassmorphicStyles.card}`}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%)', zIndex: 0 }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+              <Eye color="#10b981" size={24} />
+            </div>
+            <h2 style={{ fontSize: '1.8rem', marginBottom: '16px', color: 'white' }}>Our Vision</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '1.05rem' }}>
+              To be the globally recognized, leading platform for teacher excellence. We envision a world where every educator is empowered with the tools they need to unlock the full potential of every learner.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Leadership Quote */}
+      <motion.div variants={itemVariants} className={`rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center text-center md:text-left gap-8 bg-gradient-to-r from-white/5 to-transparent ${glassmorphicStyles.card}`}>
+        <motion.div whileHover={{ scale: 1.1, rotate: 5 }} style={{ padding: '4px', background: 'linear-gradient(135deg, var(--primary-yellow) 0%, #ec4899 100%)', borderRadius: '50%' }}>
+          <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Director" style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '4px solid #1e1b4b' }} />
+        </motion.div>
+        <div style={{ flex: 1 }}>
+          <div style={{ marginBottom: '16px' }}>
+            <Heart size={24} color="#ec4899" style={{ opacity: 0.5, marginBottom: '8px' }} />
+            <p style={{ fontSize: '1.25rem', color: 'white', fontStyle: 'italic', lineHeight: '1.6', margin: 0 }}>
+              "Our ultimate commitment is to uplift educators through highly practical training, unwavering continuous support, and a community built on shared excellence."
+            </p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '32px', height: '2px', background: 'var(--primary-yellow)' }} />
             <div>
-              <h3 className="text-white font-bold mb-2 text-lg">Vision</h3>
-              <p className="text-gray-400">Be the leading platform for teacher excellence.</p>
+              <h4 style={{ margin: 0, color: 'var(--primary-yellow)', fontSize: '1.1rem' }}>Dr. A. Director</h4>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Founder & CEO</span>
             </div>
-          </motion.div>
-        </div>
-
-        <div className="flex justify-between text-center border-t border-white/10 pt-8 flex-wrap gap-4">
-          <motion.div whileHover={{ scale: 1.1 }} className="flex-1">
-            <h3 className="text-white text-2xl font-bold">24</h3>
-            <p className="text-sm text-gray-400 mt-1">Partners</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} className="flex-1">
-            <h3 className="text-white text-2xl font-bold">10y</h3>
-            <p className="text-sm text-gray-400 mt-1">Experience</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} className="flex-1">
-            <h3 className="text-white text-2xl font-bold">92%</h3>
-            <p className="text-sm text-gray-400 mt-1">Placement</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} className="flex-1">
-            <h3 className="text-white text-2xl font-bold">48</h3>
-            <p className="text-sm text-gray-400 mt-1">Courses</p>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
-      <motion.div variants={itemVariants} className={`${glassmorphicStyles.card} p-8 flex items-center gap-6`}>
-        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Director" className="w-20 h-20 rounded-full object-cover shrink-0" />
-        <div className="flex-1">
-          <h3 className="text-white font-bold text-lg mb-2">Dr. A. Director</h3>
-          <p className="text-gray-300">"Our commitment is to uplift educators through practical training and continuous support."</p>
-        </div>
-        <div className="self-end italic text-gray-500">
-          — Director
-        </div>
-      </motion.div>
-
-      <motion.div variants={itemVariants} className={`${glassmorphicStyles.card} p-8`}>
-        <h3 className="text-white font-bold text-xl mb-6">Contact Us</h3>
-        <div className="flex flex-col gap-4">
+      {/* Contact Section */}
+      <motion.div variants={itemVariants} className={`rounded-2xl p-8 md:p-10 ${glassmorphicStyles.card}`}>
+        <h2 style={{ fontSize: '1.8rem', marginBottom: '32px', color: 'white', textAlign: 'center' }}>Get In Touch</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
           {[
-            { icon: Globe, text: "https://vwings24x7.example" },
-            { icon: Phone, text: "+1-555-0100" },
-            { icon: Mail, text: "contact@vwings24x7.example" },
-            { icon: MapPin, text: "123 Education Lane, City, Country" }
+            { icon: Globe, title: 'Website', text: "vwings24x7.com" },
+            { icon: Phone, title: 'Phone', text: "+1-555-0100" },
+            { icon: Mail, title: 'Email', text: "contact@vwings24x7.com" },
+            { icon: MapPin, title: 'Location', text: "123 Education Lane" }
           ].map((item, index) => (
             <motion.div 
               key={index} 
-              whileHover={{ x: 10 }}
-              className="flex items-center gap-4 text-gray-400 hover:text-[#F5C300] cursor-pointer transition-all"
+              whileHover={{ y: -5, background: 'rgba(255,255,255,0.08)' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s' }}
             >
-              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                <item.icon size={18} className="text-[#F5C300]" />
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(245, 195, 0, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <item.icon size={20} color="var(--primary-yellow)" />
               </div>
-              <span className="font-medium">{item.text}</span>
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', color: 'white' }}>{item.title}</h4>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{item.text}</span>
+              </div>
             </motion.div>
           ))}
         </div>
       </motion.div>
+
     </motion.div>
   );
 };

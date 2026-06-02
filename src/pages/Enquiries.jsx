@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../components/ToastContext';
 import { glassmorphicStyles } from '../theme';
 import { Search, Plus, Filter, Loader2, AlertCircle, X } from 'lucide-react';
 
 const Enquiries = () => {
+  const toast = useToast();
   const [enquiries, setEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -105,9 +107,9 @@ const Enquiries = () => {
       await fetchEnquiries(counsellorData?.counsellor_id); // Refresh the list
       setShowModal(false);
       setFormData({ ...formData, student_name: '', student_phn_no: '', course_id: '' });
-      alert("Enquiry created successfully!");
+      toast.success("Enquiry created successfully!");
     } catch (err) {
-      alert("Error: " + err.message);
+      toast.error("Error: " + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -125,7 +127,7 @@ const Enquiries = () => {
       }
       await fetchEnquiries(counsellorData?.counsellor_id);
     } catch (err) {
-      alert("Error: " + err.message);
+      toast.error("Error: " + err.message);
     }
   };
 
@@ -328,3 +330,4 @@ const Enquiries = () => {
 };
 
 export default Enquiries;
+

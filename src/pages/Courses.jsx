@@ -19,7 +19,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/courses/get-all');
+        const response = await fetch('https://appbackend.vwings247.me/api/courses/get-all');
         if (!response.ok) throw new Error('Failed to fetch courses');
         const data = await response.json();
         setCourses(data);
@@ -56,14 +56,14 @@ const Courses = () => {
 
   if (selectedCourse) {
     const courseIndex = courses.findIndex(c => c.course_id === selectedCourse.course_id);
-    const imgUrl = selectedCourse.course_photo 
-      ? (selectedCourse.course_photo.startsWith('http') ? selectedCourse.course_photo : `http://localhost:8000/${selectedCourse.course_photo.replace(/\\/g, '/')}`)
+    const imgUrl = selectedCourse.course_photo
+      ? (selectedCourse.course_photo.startsWith('http') ? selectedCourse.course_photo : `https://appbackend.vwings247.me/${selectedCourse.course_photo.replace(/\\/g, '/')}`)
       : fallbackImages[courseIndex % fallbackImages.length];
 
     return (
       <div className={`p-8 rounded-2xl bg-white/80 backdrop-blur-xl border border-[#C0BEC5]/30 flex flex-col shadow-2xl`}>
-        <button 
-          onClick={() => setSelectedCourse(null)} 
+        <button
+          onClick={() => setSelectedCourse(null)}
           className="flex items-center gap-2 text-[#373F52] hover:text-[#7B0771] transition-colors mb-6 font-medium w-fit"
         >
           <ArrowLeft size={18} />
@@ -84,7 +84,7 @@ const Courses = () => {
               {selectedCourse.course_description || "No description available."}
             </p>
           </div>
-          
+
           <div>
             <h2 className="text-xl font-bold text-[#1A2134] mb-4 border-b border-[#C0BEC5]/30 pb-2">Requirements</h2>
             <ul className="text-[#373F52] text-sm space-y-2">
@@ -102,7 +102,7 @@ const Courses = () => {
             <ul className="text-[#373F52] text-sm space-y-3">
               <li><span className="font-semibold text-[#1A2134]">Fees:</span> {
                 (selectedCourse.general_data?.course_fees ?? selectedCourse.executive_data?.course_fees) !== undefined &&
-                (selectedCourse.general_data?.course_fees ?? selectedCourse.executive_data?.course_fees) !== null
+                  (selectedCourse.general_data?.course_fees ?? selectedCourse.executive_data?.course_fees) !== null
                   ? `₹${selectedCourse.general_data?.course_fees ?? selectedCourse.executive_data?.course_fees}`
                   : 'N/A'
               }</li>
@@ -120,7 +120,7 @@ const Courses = () => {
           <button className="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white shadow-lg font-bold hover:opacity-90 transition-opacity flex justify-center items-center">
             Enroll Student
           </button>
-          <button 
+          <button
             onClick={() => {
               toast.error(`Downloading brochure for ${selectedCourse.course_name}...`);
               // In production, this would trigger a file download from backend
@@ -130,7 +130,7 @@ const Courses = () => {
             <Download size={18} />
             Download Brochure
           </button>
-          <button 
+          <button
             onClick={() => {
               const link = `https://vwings24x7.com/courses/${selectedCourse.course_id || selectedCourse.course_code}`;
               if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -154,11 +154,11 @@ const Courses = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-[#1A2134]">Course Catalog</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course, i) => {
-          const imgUrl = course.course_photo 
-            ? (course.course_photo.startsWith('http') ? course.course_photo : `http://localhost:8000/${course.course_photo.replace(/\\/g, '/')}`)
+          const imgUrl = course.course_photo
+            ? (course.course_photo.startsWith('http') ? course.course_photo : `https://appbackend.vwings247.me/${course.course_photo.replace(/\\/g, '/')}`)
             : fallbackImages[i % fallbackImages.length];
 
           const duration = course.general_data?.duration || 'Variable';
@@ -173,10 +173,10 @@ const Courses = () => {
                   <Book size={20} />
                 </div>
               </div>
-              
+
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-bold text-[#1A2134] mb-2">{course.course_name}</h3>
-                
+
                 <div className="space-y-2 mb-6 mt-2 text-[#373F52] text-sm">
                   <div className="flex items-center gap-2">
                     <Clock size={16} className="text-[#C0BEC5]" />
@@ -187,13 +187,13 @@ const Courses = () => {
                     <span>Active Students: {Math.floor(Math.random() * 100) + 20}</span>
                   </div>
                 </div>
-                
+
                 <div className="mt-auto pt-4 border-t border-[#C0BEC5]/30 flex justify-between items-center">
                   <div>
                     <span className="text-[#373F52] block text-xs">Course Fee</span>
                     <span className="text-lg font-bold text-[#1A2134]">{fee}</span>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSelectedCourse(course)}
                     className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white shadow-lg font-semibold text-sm hover:opacity-90 transition-opacity"
                   >

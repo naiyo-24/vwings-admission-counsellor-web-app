@@ -25,7 +25,7 @@ const TopNav = ({ toggleSidebar }) => {
 
   const getProfileImageUrl = (path) => {
     if (!path) return null;
-    return path.startsWith('http') ? path : `http://localhost:8000/${path}`;
+    return path.startsWith('http') ? path : `https://appbackend.vwings247.me/${path}`;
   };
 
   const getInitials = (name) => {
@@ -48,7 +48,7 @@ const TopNav = ({ toggleSidebar }) => {
               <p className="hidden md:block text-[#373F52] text-sm mt-1">Manage your admissions and enquiries effectively.</p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3 relative md:hidden">
             <NotificationBell role="counsellor" userId={profile?.counsellor_id || "counsellor"} />
             <Link to="/profile" className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-[#C0BEC5] bg-[#1A2134] border border-[#C0BEC5] cursor-pointer overflow-hidden hover:opacity-80 transition-opacity">

@@ -49,13 +49,13 @@ const Profile = () => {
     setIsSaving(true);
     setError(null);
     setSuccessMsg(null);
-    
+
     try {
       const formDataToSend = new FormData();
-      
+
       const fieldsToUpdate = [
-        'full_name', 'phone_no', 'alternative_phone_no', 'address', 
-        'qualification', 'experience', 'bank_account_name', 
+        'full_name', 'phone_no', 'alternative_phone_no', 'address',
+        'qualification', 'experience', 'bank_account_name',
         'bank_account_no', 'ifsc_code', 'upi_id'
       ];
 
@@ -69,7 +69,7 @@ const Profile = () => {
         formDataToSend.append('profile_photo', file);
       }
 
-      const response = await fetch(`http://localhost:8000/api/counsellors/put-by/${profile.counsellor_id}`, {
+      const response = await fetch(`https://appbackend.vwings247.me/api/counsellors/put-by/${profile.counsellor_id}`, {
         method: 'PUT',
         body: formDataToSend
       });
@@ -85,7 +85,7 @@ const Profile = () => {
       setIsEditing(false);
       setFile(null); // Reset file
       setSuccessMsg("Profile updated successfully!");
-      
+
       setTimeout(() => setSuccessMsg(null), 3000);
     } catch (err) {
       console.error("Error saving profile:", err);
@@ -97,7 +97,7 @@ const Profile = () => {
 
   const getProfileImageUrl = (path) => {
     if (!path) return null;
-    return path.startsWith('http') ? path : `http://localhost:8000/${path}`;
+    return path.startsWith('http') ? path : `https://appbackend.vwings247.me/${path}`;
   };
 
   if (loading) {
@@ -122,14 +122,14 @@ const Profile = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-[#1A2134]">Profile Management</h1>
         {!isEditing ? (
-          <button 
+          <button
             onClick={() => setIsEditing(true)}
             className="bg-white/60 hover:bg-white/20 text-[#1A2134] px-4 py-2 rounded-xl transition-colors border border-white/20 flex items-center gap-2"
           >
             <Edit2 size={18} /> Edit Profile
           </button>
         ) : (
-          <button 
+          <button
             onClick={() => {
               setIsEditing(false);
               setFormData(profile); // Revert changes
@@ -155,10 +155,10 @@ const Profile = () => {
           <p>{error}</p>
         </div>
       )}
-      
+
       <div className={`p-8 rounded-2xl ${glassmorphicStyles.card}`}>
         <div className="flex flex-col md:flex-row gap-8">
-          
+
           <div className="flex flex-col items-center space-y-4 md:w-1/3 border-r border-[#C0BEC5]/30 pr-0 md:pr-8">
             <div className="w-32 h-32 rounded-full bg-white border-4 border-[#7B0771] flex items-center justify-center overflow-hidden shadow-lg">
               {profile.profile_photo ? (
@@ -176,150 +176,140 @@ const Profile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Full Name</label>
-                <input 
+                <input
                   type="text"
                   name="full_name"
-                  value={formData.full_name || ''} 
+                  value={formData.full_name || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Email Address</label>
-                <input 
-                  type="email" 
-                  value={profile.email || ''} 
+                <input
+                  type="email"
+                  value={profile.email || ''}
                   disabled
-                  className="w-full bg-gray-100 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#373F52] cursor-not-allowed font-medium" 
+                  className="w-full bg-gray-100 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#373F52] cursor-not-allowed font-medium"
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Phone Number</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
                   name="phone_no"
-                  value={formData.phone_no || ''} 
+                  value={formData.phone_no || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Alternative Phone</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
                   name="alternative_phone_no"
-                  value={formData.alternative_phone_no || ''} 
+                  value={formData.alternative_phone_no || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <label className="text-sm text-[#373F52]">Address</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="address"
-                  value={formData.address || ''} 
+                  value={formData.address || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Qualification</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="qualification"
-                  value={formData.qualification || ''} 
+                  value={formData.qualification || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Experience</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="experience"
-                  value={formData.experience || ''} 
+                  value={formData.experience || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Bank Account Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="bank_account_name"
-                  value={formData.bank_account_name || ''} 
+                  value={formData.bank_account_name || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Bank Account No.</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="bank_account_no"
-                  value={formData.bank_account_no || ''} 
+                  value={formData.bank_account_no || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">IFSC Code</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="ifsc_code"
-                  value={formData.ifsc_code || ''} 
+                  value={formData.ifsc_code || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">UPI ID</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="upi_id"
-                  value={formData.upi_id || ''} 
+                  value={formData.upi_id || ''}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${
-                    isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
-                  }`}
+                  className={`w-full border rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771] transition-colors ${isEditing ? 'bg-white border-[#C0BEC5]' : 'bg-gray-100 border-[#C0BEC5]/30 cursor-not-allowed'
+                    }`}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-[#373F52]">Branch</label>
-                <input 
-                  type="text" 
-                  defaultValue={profile.branch_name || "Head Office"} 
-                  disabled 
-                  className="w-full bg-gray-100 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#373F52] cursor-not-allowed font-medium" 
+                <input
+                  type="text"
+                  defaultValue={profile.branch_name || "Head Office"}
+                  disabled
+                  className="w-full bg-gray-100 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#373F52] cursor-not-allowed font-medium"
                 />
               </div>
             </div>
@@ -328,7 +318,7 @@ const Profile = () => {
               <div className="space-y-2 pt-4 border-t border-[#C0BEC5]/30">
                 <h3 className="text-lg font-medium text-[#1A2134] mb-2">Update Profile Photo</h3>
                 <p className="text-sm text-[#373F52] mb-4">Upload a new photo (JPG, PNG).</p>
-                
+
                 <div className="flex items-center justify-center w-full">
                   <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#C0BEC5] rounded-xl cursor-pointer bg-white hover:bg-gray-50 transition-colors shadow-sm">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -345,12 +335,12 @@ const Profile = () => {
 
             {isEditing && (
               <div className="pt-6 flex justify-end">
-                <button 
+                <button
                   onClick={handleSave}
                   disabled={isSaving}
                   className="bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white shadow-lg font-bold py-2 px-6 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  {isSaving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />} 
+                  {isSaving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>

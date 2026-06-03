@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (email && password) {
       setIsLoading(true);
       try {
@@ -19,7 +19,7 @@ const Login = ({ onLogin }) => {
         formData.append('email', email);
         formData.append('password', password);
 
-        const response = await fetch('http://localhost:8000/api/counsellors/login', {
+        const response = await fetch('https://appbackend.vwings247.me/api/counsellors/login', {
           method: 'POST',
           body: formData,
         });
@@ -54,8 +54,8 @@ const Login = ({ onLogin }) => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-[#373F52] mb-2">Email Address</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -65,8 +65,8 @@ const Login = ({ onLogin }) => {
           </div>
           <div>
             <label className="block text-sm font-medium text-[#373F52] mb-2">Password</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -75,7 +75,7 @@ const Login = ({ onLogin }) => {
             />
           </div>
 
-          <button 
+          <button
             type="submit"
             disabled={isLoading}
             className={`w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:opacity-90 ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}

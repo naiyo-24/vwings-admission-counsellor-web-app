@@ -11,10 +11,10 @@ const Admissions = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/students/get-all');
+        const response = await fetch('https://appbackend.vwings247.me/api/students/get-all');
         if (!response.ok) throw new Error('Failed to fetch students');
         const data = await response.json();
-        
+
         const storedData = localStorage.getItem('counsellorData');
         let counsellorId = null;
         if (storedData) {
@@ -24,7 +24,7 @@ const Admissions = () => {
             console.error("Failed to parse counsellor data");
           }
         }
-        
+
         const filteredData = counsellorId ? data.filter(adm => adm.counsellor_id === counsellorId) : [];
         setAdmissions(filteredData);
         setError(null);
@@ -42,7 +42,7 @@ const Admissions = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-[#1A2134]">Admissions Processing</h1>
-      
+
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         {loading ? (
           <div className="flex justify-center items-center py-12">
@@ -68,7 +68,7 @@ const Admissions = () => {
                   </div>
                   <p className="text-[#373F52]">{adm.course_name || adm.course_availing || 'Course Pending'}</p>
                 </div>
-                
+
                 <div className="mt-4 md:mt-0 flex flex-wrap items-center gap-3 md:gap-6 w-full md:w-auto justify-between md:justify-end">
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-[#373F52]">Payment:</span>
@@ -76,14 +76,14 @@ const Admissions = () => {
                       Completed
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center gap-2">
                     <CheckCircle size={18} className="text-green-400" />
                     <span className="text-[#1A2134] font-medium">Enrolled</span>
                   </div>
-                  
+
                   <div className="w-full sm:w-auto flex justify-end mt-2 sm:mt-0">
-                    <button 
+                    <button
                       onClick={() => setSelectedStudent(adm)}
                       className="bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white px-6 py-2 sm:px-4 sm:py-1.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity shadow-md w-full sm:w-auto"
                     >
@@ -100,17 +100,17 @@ const Admissions = () => {
       {selectedStudent && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
           <div className={`w-full max-w-lg p-6 rounded-2xl bg-white border border-[#C0BEC5]/30 shadow-2xl relative overflow-y-auto max-h-[90vh]`}>
-            <button 
+            <button
               onClick={() => setSelectedStudent(null)}
               className="absolute top-4 right-4 text-[#373F52] hover:text-[#7B0771] transition-colors"
             >
               <X size={24} />
             </button>
-            
+
             <h2 className="text-2xl font-bold text-[#1A2134] mb-6 border-b border-[#C0BEC5]/30 pb-4">
               Student Review
             </h2>
-            
+
             <div className="space-y-4 text-[#373F52]">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -146,8 +146,8 @@ const Admissions = () => {
                   <p className="font-semibold text-[#7B0771] text-lg">{selectedStudent.course_name || selectedStudent.course_availing}</p>
                 </div>
               </div>
-              
-              <button 
+
+              <button
                 onClick={() => setSelectedStudent(null)}
                 className="w-full bg-white border border-[#C0BEC5]/50 text-[#1A2134] font-bold py-3 rounded-xl hover:bg-gray-50 transition-colors mt-6 flex justify-center items-center shadow-sm"
               >

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://appbackend.vwings247.me';
 
 const AdBanner = () => {
   const [ads, setAds] = useState([]);
@@ -29,12 +29,12 @@ const AdBanner = () => {
 
   useEffect(() => {
     if (ads.length <= 1 || isHovered) return;
-    
+
     // Progress bar logic
     const tick = 50; // update every 50ms
     const duration = 5000;
     let currentProgress = 0;
-    
+
     const interval = setInterval(() => {
       currentProgress += (tick / duration) * 100;
       if (currentProgress >= 100) {
@@ -43,7 +43,7 @@ const AdBanner = () => {
       }
       setProgress(currentProgress);
     }, tick);
-    
+
     return () => clearInterval(interval);
   }, [ads.length, isHovered, currentIndex]);
 
@@ -70,12 +70,12 @@ const AdBanner = () => {
   };
 
   return (
-    <div 
+    <div
       className="glass-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ 
-        marginBottom: '28px', 
+      style={{
+        marginBottom: '28px',
         position: 'relative',
         overflow: 'hidden',
         background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(88, 28, 135, 0.8) 100%)',
@@ -92,63 +92,63 @@ const AdBanner = () => {
       <div style={{ position: 'absolute', bottom: '-50%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
 
       <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-            className="absolute w-full h-full px-4 md:px-[60px] flex justify-between items-center box-border z-10"
-          >
-            <div className="flex items-center gap-3 md:gap-8 flex-1 min-w-0 pr-2">
-              {currentAd.ad_image && (
-                <motion.div
-                  initial={{ scale: 0.8, rotate: -5 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", bounce: 0.5 }}
-                  className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] rounded-xl md:rounded-2xl overflow-hidden shadow-xl shrink-0 border-2 md:border-[3px] border-white/20 bg-white"
-                >
-                  <img src={`${API_BASE_URL}/${currentAd.ad_image}`} alt="Ad" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
-                </motion.div>
-              )}
-              <div className="flex-1 min-w-0">
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                  <span className="inline-block px-2 md:px-3 py-1 bg-[#F5C300]/20 text-[#F5C300] rounded-lg md:rounded-xl text-[0.65rem] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">
-                    Sponsored
-                  </span>
-                  <h3 className="text-white m-0 mb-1 md:mb-2 text-xl md:text-3xl font-extrabold tracking-tight truncate">
-                    {currentAd.headline}
-                  </h3>
-                  {currentAd.tagline && <p className="m-0 text-sm md:text-base text-white/70 max-w-full md:max-w-[80%] truncate">{currentAd.tagline}</p>}
-                </motion.div>
-              </div>
-            </div>
-            
-            {currentAd.website_link && (
-              <motion.a 
-                href={currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`} 
-                target="_blank" rel="noreferrer" 
-                initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-                style={{ textDecoration: 'none' }}
-                className="shrink-0"
+        <motion.div
+          key={currentIndex}
+          custom={direction}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+          className="absolute w-full h-full px-4 md:px-[60px] flex justify-between items-center box-border z-10"
+        >
+          <div className="flex items-center gap-3 md:gap-8 flex-1 min-w-0 pr-2">
+            {currentAd.ad_image && (
+              <motion.div
+                initial={{ scale: 0.8, rotate: -5 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", bounce: 0.5 }}
+                className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] rounded-xl md:rounded-2xl overflow-hidden shadow-xl shrink-0 border-2 md:border-[3px] border-white/20 bg-white"
               >
-                <motion.button 
-                  whileHover={{ scale: 1.05, background: 'var(--primary-yellow)', color: 'black' }} 
-                  whileTap={{ scale: 0.95 }}
-                  className="px-3 md:px-6 py-2 md:py-3 text-sm md:text-base flex items-center gap-1 md:gap-2 font-bold bg-white/10 text-white border border-white/20 rounded-lg md:rounded-xl cursor-pointer transition-colors"
-                >
-                  <span className="hidden sm:inline">Learn More</span> <ArrowRight size={18} />
-                </motion.button>
-              </motion.a>
+                <img src={`${API_BASE_URL}/${currentAd.ad_image}`} alt="Ad" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+              </motion.div>
             )}
-          </motion.div>
+            <div className="flex-1 min-w-0">
+              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+                <span className="inline-block px-2 md:px-3 py-1 bg-[#F5C300]/20 text-[#F5C300] rounded-lg md:rounded-xl text-[0.65rem] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">
+                  Sponsored
+                </span>
+                <h3 className="text-white m-0 mb-1 md:mb-2 text-xl md:text-3xl font-extrabold tracking-tight truncate">
+                  {currentAd.headline}
+                </h3>
+                {currentAd.tagline && <p className="m-0 text-sm md:text-base text-white/70 max-w-full md:max-w-[80%] truncate">{currentAd.tagline}</p>}
+              </motion.div>
+            </div>
+          </div>
+
+          {currentAd.website_link && (
+            <motion.a
+              href={currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`}
+              target="_blank" rel="noreferrer"
+              initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
+              style={{ textDecoration: 'none' }}
+              className="shrink-0"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05, background: 'var(--primary-yellow)', color: 'black' }}
+                whileTap={{ scale: 0.95 }}
+                className="px-3 md:px-6 py-2 md:py-3 text-sm md:text-base flex items-center gap-1 md:gap-2 font-bold bg-white/10 text-white border border-white/20 rounded-lg md:rounded-xl cursor-pointer transition-colors"
+              >
+                <span className="hidden sm:inline">Learn More</span> <ArrowRight size={18} />
+              </motion.button>
+            </motion.a>
+          )}
+        </motion.div>
       </AnimatePresence>
 
       {ads.length > 1 && (
         <>
-          <button 
+          <button
             onClick={handlePrev}
-            style={{ 
+            style={{
               position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10,
               background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', backdropFilter: 'blur(4px)',
               width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -159,9 +159,9 @@ const AdBanner = () => {
           >
             <ChevronLeft size={24} />
           </button>
-          <button 
+          <button
             onClick={handleNext}
-            style={{ 
+            style={{
               position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10,
               background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', backdropFilter: 'blur(4px)',
               width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -176,18 +176,18 @@ const AdBanner = () => {
           {/* Elegant Pill Indicators */}
           <div style={{ position: 'absolute', bottom: '16px', left: '0', width: '100%', display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 10 }}>
             {ads.map((_, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 onClick={() => { setDirection(idx > currentIndex ? 1 : -1); setCurrentIndex(idx); setProgress(0); }}
-                style={{ 
-                  width: currentIndex === idx ? '24px' : '8px', 
-                  height: '8px', 
-                  borderRadius: '4px', 
+                style={{
+                  width: currentIndex === idx ? '24px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
                   background: currentIndex === idx ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)',
                   cursor: 'pointer',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   boxShadow: currentIndex === idx ? '0 0 8px rgba(255,255,255,0.5)' : 'none'
-                }} 
+                }}
               />
             ))}
           </div>

@@ -3,7 +3,7 @@ import { Search, Loader, X, BookOpen, User, Briefcase, HeartHandshake } from 'lu
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://appbackend.vwings247.me';
 
 const GlobalSearch = () => {
   const [query, setQuery] = useState('');
@@ -120,13 +120,13 @@ const GlobalSearch = () => {
           <Loader size={16} className="absolute right-3 animate-spin text-[#717A8D]" />
         )}
         {query && !isLoading && (
-          <X 
-            size={16} 
-            className="absolute right-3 text-[#717A8D] cursor-pointer" 
+          <X
+            size={16}
+            className="absolute right-3 text-[#717A8D] cursor-pointer"
             onClick={() => {
               setQuery('');
               setIsOpen(false);
-            }} 
+            }}
           />
         )}
       </div>

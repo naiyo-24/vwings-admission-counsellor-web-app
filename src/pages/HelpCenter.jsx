@@ -30,7 +30,7 @@ const HelpCenter = () => {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const response = await fetch('http://localhost:8000/api/helpcenter/create', {
+      const response = await fetch('https://appbackend.vwings247.me/api/helpcenter/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -56,7 +56,7 @@ const HelpCenter = () => {
   ];
 
   return (
-    <motion.div 
+    <motion.div
       initial="hidden"
       animate="show"
       variants={containerVariants}
@@ -64,9 +64,9 @@ const HelpCenter = () => {
     >
       <motion.div variants={itemVariants} className={`p-12 text-center relative overflow-hidden rounded-2xl ${glassmorphicStyles.card}`}>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-72 h-36 bg-[#9E161B] blur-[80px] opacity-20 z-0" />
-        
+
         <div className="relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -82,9 +82,9 @@ const HelpCenter = () => {
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             {socialLinks.map((link, i) => (
-              <motion.a 
+              <motion.a
                 key={i}
-                href={link.href} 
+                href={link.href}
                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(245, 195, 0, 0.1)' }}
                 className="flex items-center gap-2 text-[#373F52] bg-white/40 px-5 py-2.5 rounded-full border border-[#C0BEC5]/30 hover:text-[#C0BEC5] hover:border-[#C0BEC5] transition-all"
               >
@@ -101,7 +101,7 @@ const HelpCenter = () => {
           <h3 className="text-[var(--text-main)] text-2xl font-bold mb-2">Submit a Query to Admin</h3>
           <p className="text-[#373F52]">We are here to help. Send us your query and the admin team will resolve it promptly.</p>
         </div>
-        
+
         <form onSubmit={handleSubmitTicket} className="flex flex-col gap-5 max-w-2xl mx-auto">
           <AnimatePresence>
             {status === 'success' && (
@@ -121,71 +121,71 @@ const HelpCenter = () => {
               </motion.div>
             )}
           </AnimatePresence>
-          
+
           <div className="flex gap-5 flex-wrap">
             <div className="relative flex-1 min-w-[250px]">
               <User size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'name' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
-              <input 
-                type="text" 
-                name="name" 
-                value={formData.name} 
-                onChange={handleInputChange} 
-                onFocus={() => setFocusedField('name')} 
-                onBlur={() => setFocusedField(null)} 
-                required 
-                placeholder="Full name" 
-                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'name' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                onFocus={() => setFocusedField('name')}
+                onBlur={() => setFocusedField(null)}
+                required
+                placeholder="Full name"
+                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'name' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`}
               />
             </div>
-            
+
             <div className="relative flex-1 min-w-[250px]">
               <Smartphone size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'phone' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
-              <input 
-                type="tel" 
-                name="phone_no" 
-                value={formData.phone_no} 
-                onChange={handleInputChange} 
-                onFocus={() => setFocusedField('phone')} 
-                onBlur={() => setFocusedField(null)} 
-                required 
-                placeholder="Phone number" 
-                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'phone' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
+              <input
+                type="tel"
+                name="phone_no"
+                value={formData.phone_no}
+                onChange={handleInputChange}
+                onFocus={() => setFocusedField('phone')}
+                onBlur={() => setFocusedField(null)}
+                required
+                placeholder="Phone number"
+                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'phone' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`}
               />
             </div>
           </div>
-          
+
           <div className="relative">
             <Mail size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'email' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
-            <input 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleInputChange} 
-              onFocus={() => setFocusedField('email')} 
-              onBlur={() => setFocusedField(null)} 
-              required 
-              placeholder="Email address" 
-              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'email' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              onFocus={() => setFocusedField('email')}
+              onBlur={() => setFocusedField(null)}
+              required
+              placeholder="Email address"
+              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'email' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`}
             />
           </div>
-          
+
           <div className="relative">
             <MessageSquare size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'desc' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
-            <textarea 
-              name="problem_description" 
-              value={formData.problem_description} 
+            <textarea
+              name="problem_description"
+              value={formData.problem_description}
               onChange={handleInputChange}
-              onFocus={() => setFocusedField('desc')} 
-              onBlur={() => setFocusedField(null)} 
-              required 
+              onFocus={() => setFocusedField('desc')}
+              onBlur={() => setFocusedField(null)}
+              required
               placeholder="Please describe your issue in detail..."
               className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none min-h-[140px] resize-y transition-all ${focusedField === 'desc' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`}
             />
           </div>
-          
-          <motion.button 
-            type="submit" 
-            disabled={status === 'submitting'} 
+
+          <motion.button
+            type="submit"
+            disabled={status === 'submitting'}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white shadow-lg font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-3 hover:opacity-90 transition-opacity shadow-[0_10px_25px_rgba(245,195,0,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"

@@ -19,13 +19,13 @@ const CommissionSlips = () => {
             console.error("Failed to parse counsellor data");
           }
         }
-        
+
         if (!counsellorId) return;
 
-        const response = await fetch(`http://localhost:8000/api/commissions/payouts?counsellor_id=${counsellorId}`);
+        const response = await fetch(`https://appbackend.vwings247.me/api/commissions/payouts?counsellor_id=${counsellorId}`);
         if (!response.ok) throw new Error('Failed to fetch payout slips');
         const data = await response.json();
-        
+
         setCommissions(data);
         setError(null);
       } catch (err) {
@@ -49,13 +49,13 @@ const CommissionSlips = () => {
   };
 
   const handleDownload = (payoutId) => {
-    window.open(`http://localhost:8000/api/commissions/payouts/download/${payoutId}`, '_blank');
+    window.open(`https://appbackend.vwings247.me/api/commissions/payouts/download/${payoutId}`, '_blank');
   };
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-[#1A2134]">Payout Slips</h1>
-      
+
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         {loading ? (
           <div className="flex justify-center items-center py-12">
@@ -85,13 +85,13 @@ const CommissionSlips = () => {
                     <p className="text-sm text-[#C0BEC5] font-bold">Amount: ₹{slip.amount}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between w-full md:w-auto gap-8">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm text-[#373F52]">Status</p>
                     <p className="text-green-400 font-medium">{slip.status}</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => handleDownload(slip.id)}
                     className="flex items-center gap-2 bg-white/60 hover:bg-white/20 text-[#1A2134] px-4 py-2 rounded-lg transition-colors border border-white/20"
                   >

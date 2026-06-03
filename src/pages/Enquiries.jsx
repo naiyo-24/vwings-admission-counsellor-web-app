@@ -8,7 +8,7 @@ const Enquiries = () => {
   const [enquiries, setEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState([]);
   const [formData, setFormData] = useState({
@@ -29,12 +29,12 @@ const Enquiries = () => {
       try {
         parsedData = JSON.parse(storedData);
         setCounsellorData(parsedData);
-        setFormData(prev => ({...prev, counsellor_id: parsedData.counsellor_id}));
+        setFormData(prev => ({ ...prev, counsellor_id: parsedData.counsellor_id }));
       } catch (err) {
         console.error("Failed to parse counsellor data:", err);
       }
     }
-    
+
     fetchEnquiries(parsedData?.counsellor_id);
     fetchCourses();
     fetchAdmissionCodes(parsedData?.counsellor_id);
@@ -42,7 +42,7 @@ const Enquiries = () => {
 
   const fetchAdmissionCodes = async (counsellorId) => {
     try {
-      const response = await fetch('http://localhost:8000/api/admission-codes/get-all');
+      const response = await fetch('https://appbackend.vwings247.me/api/admission-codes/get-all');
       if (response.ok) {
         const data = await response.json();
         const filteredCodes = counsellorId ? data.filter(c => c.counsellor_id === counsellorId) : [];
@@ -61,10 +61,10 @@ const Enquiries = () => {
   const fetchEnquiries = async (counsellorId) => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/api/admission-enquiries/get-all');
+      const response = await fetch('https://appbackend.vwings247.me/api/admission-enquiries/get-all');
       if (!response.ok) throw new Error('Failed to fetch enquiries');
       const data = await response.json();
-      
+
       // Filter by logged-in counsellor
       const filteredData = counsellorId ? data.filter(enq => enq.counsellor_id === counsellorId) : [];
       setEnquiries(filteredData);
@@ -79,7 +79,7 @@ const Enquiries = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/courses/get-all');
+      const response = await fetch('https://appbackend.vwings247.me/api/courses/get-all');
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
@@ -93,17 +93,17 @@ const Enquiries = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const response = await fetch('http://localhost:8000/api/admission-enquiries/create', {
+      const response = await fetch('https://appbackend.vwings247.me/api/admission-enquiries/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      
+
       if (!response.ok) {
         const errData = await response.json();
         throw new Error(errData.detail || 'Failed to create enquiry');
       }
-      
+
       await fetchEnquiries(counsellorData?.counsellor_id); // Refresh the list
       setShowModal(false);
       setFormData({ ...formData, student_name: '', student_phn_no: '', course_id: '' });
@@ -117,7 +117,7 @@ const Enquiries = () => {
 
   const handleStatusChange = async (enquiryId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admission-enquiries/update-status/${enquiryId}`, {
+      const response = await fetch(`https://appbackend.vwings247.me/api/admission-enquiries/update-status/${enquiryId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -143,7 +143,7 @@ const Enquiries = () => {
     <div className="space-y-6 relative">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h1 className="text-2xl font-bold text-[#1A2134]">Student Enquiries</h1>
-        <button 
+        <button
           onClick={() => setShowModal(true)}
           className="bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-2 px-4 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
         >
@@ -155,9 +155,9 @@ const Enquiries = () => {
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#373F52]" size={20} />
-            <input 
-              type="text" 
-              placeholder="Search enquiries..." 
+            <input
+              type="text"
+              placeholder="Search enquiries..."
               className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl pl-10 pr-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5] transition-colors"
             />
           </div>
@@ -207,8 +207,8 @@ const Enquiries = () => {
                       </span>
                     </td>
                     <td className="py-4">
-                      <select 
-                        value={enq.status || 'pending'} 
+                      <select
+                        value={enq.status || 'pending'}
                         onChange={(e) => handleStatusChange(enq.enquiry_id, e.target.value)}
                         className="bg-white/60 border border-[#C0BEC5]/50 text-[#1A2134] rounded-lg px-2 py-1 focus:outline-none focus:border-[#7B0771] transition-colors text-sm font-medium cursor-pointer shadow-sm"
                       >
@@ -230,44 +230,44 @@ const Enquiries = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
           <div className={`w-full max-w-md p-6 rounded-2xl bg-white border border-[#C0BEC5]/30 shadow-2xl relative`}>
-            <button 
+            <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-[#373F52] hover:text-[#7B0771] transition-colors"
             >
               <X size={24} />
             </button>
-            
+
             <h2 className="text-2xl font-bold text-[#1A2134] mb-6">New Enquiry</h2>
-            
+
             <form onSubmit={handleCreateEnquiry} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#373F52] mb-1">Student Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   value={formData.student_name}
-                  onChange={(e) => setFormData({...formData, student_name: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
                   className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-[#373F52] mb-1">Phone Number</label>
-                <input 
-                  type="tel" 
+                <input
+                  type="tel"
                   required
                   value={formData.student_phn_no}
-                  onChange={(e) => setFormData({...formData, student_phn_no: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, student_phn_no: e.target.value })}
                   className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-[#373F52] mb-1">Interested Course</label>
-                <select 
+                <select
                   required
                   value={formData.course_id}
-                  onChange={(e) => setFormData({...formData, course_id: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, course_id: e.target.value })}
                   className="w-full bg-white border border-[#C0BEC5]/50 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771]"
                 >
                   <option value="">Select a course</option>
@@ -280,8 +280,8 @@ const Enquiries = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-[#373F52] mb-1">Counsellor ID</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     required
                     disabled
                     value={formData.counsellor_id}
@@ -291,10 +291,10 @@ const Enquiries = () => {
                 <div>
                   <label className="block text-sm font-medium text-[#373F52] mb-1">Admission Code</label>
                   {admissionCodes.length > 0 ? (
-                    <select 
+                    <select
                       required
                       value={formData.admission_code}
-                      onChange={(e) => setFormData({...formData, admission_code: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, admission_code: e.target.value })}
                       className="w-full bg-white border border-[#C0BEC5]/50 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771]"
                     >
                       {admissionCodes.map(code => (
@@ -302,11 +302,11 @@ const Enquiries = () => {
                       ))}
                     </select>
                   ) : (
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       value={formData.admission_code}
-                      onChange={(e) => setFormData({...formData, admission_code: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, admission_code: e.target.value })}
                       className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                       placeholder="Enter code"
                     />
@@ -314,8 +314,8 @@ const Enquiries = () => {
                 </div>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={submitting}
                 className="w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-3 rounded-xl hover:opacity-90 transition-opacity mt-4 flex justify-center items-center shadow-md disabled:opacity-50"
               >

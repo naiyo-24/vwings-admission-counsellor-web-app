@@ -35,9 +35,9 @@ const Dashboard = () => {
         }
 
         const [enqRes, admRes, commRes] = await Promise.all([
-          fetch('http://localhost:8000/api/admission-enquiries/get-all'),
-          fetch('http://localhost:8000/api/students/get-all'),
-          fetch(`http://localhost:8000/api/commissions/payouts${counsellorId ? `?counsellor_id=${counsellorId}` : ''}`)
+          fetch('https://appbackend.vwings247.me/api/admission-enquiries/get-all'),
+          fetch('https://appbackend.vwings247.me/api/students/get-all'),
+          fetch(`https://appbackend.vwings247.me/api/commissions/payouts${counsellorId ? `?counsellor_id=${counsellorId}` : ''}`)
         ]);
 
         if (!enqRes.ok || !admRes.ok || !commRes.ok) {
@@ -47,7 +47,7 @@ const Dashboard = () => {
         const enquiries = await enqRes.json();
         const admissions = await admRes.json();
         const commissions = await commRes.json();
-        
+
         const filteredEnquiries = counsellorId ? enquiries.filter(e => e.counsellor_id === counsellorId) : [];
         const filteredAdmissions = counsellorId ? admissions.filter(a => a.counsellor_id === counsellorId) : [];
         // Payouts are already filtered by the API if counsellorId is provided, but we can double check

@@ -63,21 +63,21 @@ const HelpCenter = () => {
       className="max-w-4xl mx-auto flex flex-col gap-8 pb-10"
     >
       <motion.div variants={itemVariants} className={`p-12 text-center relative overflow-hidden rounded-2xl ${glassmorphicStyles.card}`}>
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-72 h-36 bg-[#B6007D] blur-[80px] opacity-20 z-0" />
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-72 h-36 bg-[#9E161B] blur-[80px] opacity-20 z-0" />
         
         <div className="relative z-10">
           <motion.div 
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="mx-auto mb-6 flex items-center justify-center bg-white/5 p-4 rounded-3xl w-max shadow-2xl border border-white/10"
+            className="mx-auto mb-6 flex items-center justify-center bg-white/40 p-4 rounded-3xl w-max shadow-2xl border border-[#C0BEC5]/30"
           >
             <img src="/assets/V-Wings_Logo_nobg.png" alt="VWings24x7 Logo" className="w-20 h-20 rounded-xl object-contain" />
           </motion.div>
-          <h2 className="text-4xl font-bold mb-2 text-[#F5C300]">
+          <h2 className="text-4xl font-bold mb-2 text-[#C0BEC5]">
             Admin Support Center
           </h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-[#373F52] mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
             Get in touch with the VWings24x7 administration team for any queries or support requests.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
@@ -86,7 +86,7 @@ const HelpCenter = () => {
                 key={i}
                 href={link.href} 
                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(245, 195, 0, 0.1)' }}
-                className="flex items-center gap-2 text-gray-300 bg-white/5 px-5 py-2.5 rounded-full border border-white/10 hover:text-[#F5C300] hover:border-[#F5C300] transition-all"
+                className="flex items-center gap-2 text-[#373F52] bg-white/40 px-5 py-2.5 rounded-full border border-[#C0BEC5]/30 hover:text-[#C0BEC5] hover:border-[#C0BEC5] transition-all"
               >
                 {link.icon}
                 <span className="text-sm font-medium">{link.label}</span>
@@ -98,8 +98,8 @@ const HelpCenter = () => {
 
       <motion.div variants={itemVariants} className={`p-10 rounded-2xl ${glassmorphicStyles.card}`}>
         <div className="mb-8 text-center">
-          <h3 className="text-white text-2xl font-bold mb-2">Submit a Query to Admin</h3>
-          <p className="text-gray-400">We are here to help. Send us your query and the admin team will resolve it promptly.</p>
+          <h3 className="text-[var(--text-main)] text-2xl font-bold mb-2">Submit a Query to Admin</h3>
+          <p className="text-[#373F52]">We are here to help. Send us your query and the admin team will resolve it promptly.</p>
         </div>
         
         <form onSubmit={handleSubmitTicket} className="flex flex-col gap-5 max-w-2xl mx-auto">
@@ -124,7 +124,7 @@ const HelpCenter = () => {
           
           <div className="flex gap-5 flex-wrap">
             <div className="relative flex-1 min-w-[250px]">
-              <User size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'name' ? 'text-[#F5C300]' : 'text-gray-400'}`} />
+              <User size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'name' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
               <input 
                 type="text" 
                 name="name" 
@@ -134,12 +134,12 @@ const HelpCenter = () => {
                 onBlur={() => setFocusedField(null)} 
                 required 
                 placeholder="Full name" 
-                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-white outline-none transition-all ${focusedField === 'name' ? 'border-[#F5C300] ring-2 ring-[#F5C300]/20' : 'border-white/10'}`} 
+                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'name' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
               />
             </div>
             
             <div className="relative flex-1 min-w-[250px]">
-              <Smartphone size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'phone' ? 'text-[#F5C300]' : 'text-gray-400'}`} />
+              <Smartphone size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'phone' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
               <input 
                 type="tel" 
                 name="phone_no" 
@@ -149,13 +149,13 @@ const HelpCenter = () => {
                 onBlur={() => setFocusedField(null)} 
                 required 
                 placeholder="Phone number" 
-                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-white outline-none transition-all ${focusedField === 'phone' ? 'border-[#F5C300] ring-2 ring-[#F5C300]/20' : 'border-white/10'}`} 
+                className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'phone' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
               />
             </div>
           </div>
           
           <div className="relative">
-            <Mail size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'email' ? 'text-[#F5C300]' : 'text-gray-400'}`} />
+            <Mail size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'email' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
             <input 
               type="email" 
               name="email" 
@@ -165,12 +165,12 @@ const HelpCenter = () => {
               onBlur={() => setFocusedField(null)} 
               required 
               placeholder="Email address" 
-              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-white outline-none transition-all ${focusedField === 'email' ? 'border-[#F5C300] ring-2 ring-[#F5C300]/20' : 'border-white/10'}`} 
+              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none transition-all ${focusedField === 'email' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`} 
             />
           </div>
           
           <div className="relative">
-            <MessageSquare size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'desc' ? 'text-[#F5C300]' : 'text-gray-400'}`} />
+            <MessageSquare size={18} className={`absolute left-4 top-4 transition-colors ${focusedField === 'desc' ? 'text-[#C0BEC5]' : 'text-[#373F52]'}`} />
             <textarea 
               name="problem_description" 
               value={formData.problem_description} 
@@ -179,7 +179,7 @@ const HelpCenter = () => {
               onBlur={() => setFocusedField(null)} 
               required 
               placeholder="Please describe your issue in detail..."
-              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-white outline-none min-h-[140px] resize-y transition-all ${focusedField === 'desc' ? 'border-[#F5C300] ring-2 ring-[#F5C300]/20' : 'border-white/10'}`}
+              className={`w-full py-3.5 px-4 pl-12 bg-black/20 border rounded-xl text-[var(--text-main)] outline-none min-h-[140px] resize-y transition-all ${focusedField === 'desc' ? 'border-[#C0BEC5] ring-2 ring-[#C0BEC5]/20' : 'border-[var(--border)]'}`}
             />
           </div>
           
@@ -188,7 +188,7 @@ const HelpCenter = () => {
             disabled={status === 'submitting'} 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-[#F5C300] to-[#FFD700] text-[#370E62] font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-3 hover:opacity-90 transition-opacity shadow-[0_10px_25px_rgba(245,195,0,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white shadow-lg font-bold py-4 rounded-xl flex items-center justify-center gap-2 mt-3 hover:opacity-90 transition-opacity shadow-[0_10px_25px_rgba(245,195,0,0.3)] disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {status === 'submitting' ? 'Submitting ticket...' : (
               <>

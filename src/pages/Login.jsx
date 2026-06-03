@@ -41,36 +41,36 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#370E62] to-[#B6007D] flex items-center justify-center p-4">
-      <div className={`w-full max-w-md p-8 rounded-3xl ${glassmorphicStyles.dark}`}>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md p-8 rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-[#C0BEC5]/30">
         <div className="flex flex-col items-center mb-8">
           <img src="/assets/V-Wings_Logo_nobg.png" alt="VWings24x7 Logo" className="w-20 h-20 object-contain mb-4" />
-          <h1 className="text-2xl font-bold text-[#F5C300]">VWings24x7</h1>
-          <p className="text-gray-300 text-sm mt-1">Admission Counsellor Portal</p>
+          <h1 className="text-2xl font-bold text-[#1A2134]">VWings24x7</h1>
+          <p className="text-[#373F52] text-sm mt-1">Admission Counsellor Portal</p>
         </div>
 
 
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-200 mb-2">Email Address</label>
+            <label className="block text-sm font-medium text-[#373F52] mb-2">Email Address</label>
             <input 
               type="email" 
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#370E62]/40 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#F5C300] focus:ring-1 focus:ring-[#F5C300] transition-colors"
+              className="w-full bg-gray-50 border border-[#C0BEC5]/50 rounded-xl px-4 py-3 text-[#1A2134] placeholder-gray-400 focus:outline-none focus:border-[#7B0771] focus:ring-1 focus:ring-[#7B0771] transition-colors"
               placeholder="counsellor@vwings.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-200 mb-2">Password</label>
+            <label className="block text-sm font-medium text-[#373F52] mb-2">Password</label>
             <input 
               type="password" 
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#370E62]/40 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#F5C300] focus:ring-1 focus:ring-[#F5C300] transition-colors"
+              className="w-full bg-gray-50 border border-[#C0BEC5]/50 rounded-xl px-4 py-3 text-[#1A2134] placeholder-gray-400 focus:outline-none focus:border-[#7B0771] focus:ring-1 focus:ring-[#7B0771] transition-colors"
               placeholder="••••••••"
             />
           </div>
@@ -78,7 +78,7 @@ const Login = ({ onLogin }) => {
           <button 
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-gradient-to-r from-[#F5C300] to-[#FFD700] hover:from-[#FFD700] hover:to-[#F5C300] text-[#370E62] font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
+            className={`w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:opacity-90 ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
           >
             {isLoading ? 'Signing In...' : 'Sign In to Portal'}
             {isLoading ? <Loader size={20} className="animate-spin" /> : <LogIn size={20} />}

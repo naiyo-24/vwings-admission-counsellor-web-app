@@ -92,66 +92,56 @@ const AdBanner = () => {
       <div style={{ position: 'absolute', bottom: '-50%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
 
       <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentIndex}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-          style={{ 
-            position: 'absolute', width: '100%', height: '100%', padding: '0 60px',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box', zIndex: 1
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flex: 1 }}>
-            {currentAd.ad_image && (
-              <motion.div
-                initial={{ scale: 0.8, rotate: -5 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", bounce: 0.5 }}
-                style={{
-                  width: '120px', height: '120px', borderRadius: '20px', overflow: 'hidden',
-                  boxShadow: '0 12px 24px rgba(0,0,0,0.5)', flexShrink: 0,
-                  border: '3px solid rgba(255,255,255,0.2)', background: 'white'
-                }}
-              >
-                <img src={`${API_BASE_URL}/${currentAd.ad_image}`} alt="Ad" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
-              </motion.div>
-            )}
-            <div style={{ flex: 1 }}>
-              <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(245, 195, 0, 0.2)', color: 'var(--primary-yellow)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
-                  Sponsored
-                </span>
-                <h3 style={{ color: 'white', margin: '0 0 8px 0', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '-0.5px' }}>
-                  {currentAd.headline}
-                </h3>
-                {currentAd.tagline && <p style={{ margin: 0, fontSize: '1rem', color: 'rgba(255,255,255,0.7)', maxWidth: '80%' }}>{currentAd.tagline}</p>}
-              </motion.div>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+            className="absolute w-full h-full px-4 md:px-[60px] flex justify-between items-center box-border z-10"
+          >
+            <div className="flex items-center gap-3 md:gap-8 flex-1 min-w-0 pr-2">
+              {currentAd.ad_image && (
+                <motion.div
+                  initial={{ scale: 0.8, rotate: -5 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", bounce: 0.5 }}
+                  className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] rounded-xl md:rounded-2xl overflow-hidden shadow-xl shrink-0 border-2 md:border-[3px] border-white/20 bg-white"
+                >
+                  <img src={`${API_BASE_URL}/${currentAd.ad_image}`} alt="Ad" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+                </motion.div>
+              )}
+              <div className="flex-1 min-w-0">
+                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+                  <span className="inline-block px-2 md:px-3 py-1 bg-[#F5C300]/20 text-[#F5C300] rounded-lg md:rounded-xl text-[0.65rem] md:text-xs font-bold uppercase tracking-wider mb-1 md:mb-2">
+                    Sponsored
+                  </span>
+                  <h3 className="text-white m-0 mb-1 md:mb-2 text-xl md:text-3xl font-extrabold tracking-tight truncate">
+                    {currentAd.headline}
+                  </h3>
+                  {currentAd.tagline && <p className="m-0 text-sm md:text-base text-white/70 max-w-full md:max-w-[80%] truncate">{currentAd.tagline}</p>}
+                </motion.div>
+              </div>
             </div>
-          </div>
-          
-          {currentAd.website_link && (
-            <motion.a 
-              href={currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`} 
-              target="_blank" rel="noreferrer" 
-              initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-              style={{ textDecoration: 'none' }}
-            >
-              <motion.button 
-                whileHover={{ scale: 1.05, background: 'var(--primary-yellow)', color: 'black' }} 
-                whileTap={{ scale: 0.95 }}
-                style={{ 
-                  padding: '12px 24px', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px', 
-                  fontWeight: 'bold', background: 'rgba(255,255,255,0.1)', color: 'white',
-                  border: '1px solid rgba(255,255,255,0.2)', borderRadius: '14px', cursor: 'pointer', transition: 'all 0.2s'
-                }}
+            
+            {currentAd.website_link && (
+              <motion.a 
+                href={currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`} 
+                target="_blank" rel="noreferrer" 
+                initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
+                style={{ textDecoration: 'none' }}
+                className="shrink-0"
               >
-                Learn More <ArrowRight size={18} />
-              </motion.button>
-            </motion.a>
-          )}
-        </motion.div>
+                <motion.button 
+                  whileHover={{ scale: 1.05, background: 'var(--primary-yellow)', color: 'black' }} 
+                  whileTap={{ scale: 0.95 }}
+                  className="px-3 md:px-6 py-2 md:py-3 text-sm md:text-base flex items-center gap-1 md:gap-2 font-bold bg-white/10 text-white border border-white/20 rounded-lg md:rounded-xl cursor-pointer transition-colors"
+                >
+                  <span className="hidden sm:inline">Learn More</span> <ArrowRight size={18} />
+                </motion.button>
+              </motion.a>
+            )}
+          </motion.div>
       </AnimatePresence>
 
       {ads.length > 1 && (

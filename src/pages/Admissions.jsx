@@ -41,12 +41,12 @@ const Admissions = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">Admissions Processing</h1>
+      <h1 className="text-2xl font-bold text-[#1A2134]">Admissions Processing</h1>
       
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 text-[#F5C300] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#C0BEC5] animate-spin" />
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-12 text-red-400">
@@ -54,24 +54,24 @@ const Admissions = () => {
             <p>{error}</p>
           </div>
         ) : admissions.length === 0 ? (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-[#373F52]">
             <p>No enrolled students found.</p>
           </div>
         ) : (
           <div className="space-y-4">
             {admissions.map((adm) => (
-              <div key={adm.student_id} className="flex flex-col md:flex-row justify-between items-start md:items-center p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div key={adm.student_id} className="flex flex-col md:flex-row justify-between items-start md:items-center p-5 rounded-xl bg-white/40 border border-[#C0BEC5]/30 hover:bg-white/60 transition-colors">
                 <div>
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-lg font-bold text-white">{adm.full_name || adm.username}</h3>
-                    <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-gray-300">{adm.student_id}</span>
+                    <h3 className="text-lg font-bold text-[#1A2134]">{adm.full_name || adm.username}</h3>
+                    <span className="text-xs px-2 py-0.5 rounded bg-white/60 text-[#373F52]">{adm.student_id}</span>
                   </div>
-                  <p className="text-gray-400">{adm.course_name || adm.course_availing || 'Course Pending'}</p>
+                  <p className="text-[#373F52]">{adm.course_name || adm.course_availing || 'Course Pending'}</p>
                 </div>
                 
-                <div className="mt-4 md:mt-0 flex items-center gap-6">
+                <div className="mt-4 md:mt-0 flex flex-wrap items-center gap-3 md:gap-6 w-full md:w-auto justify-between md:justify-end">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-400">Payment:</span>
+                    <span className="text-sm text-[#373F52]">Payment:</span>
                     <span className={`text-sm font-medium text-green-400`}>
                       Completed
                     </span>
@@ -79,15 +79,17 @@ const Admissions = () => {
                   
                   <div className="flex items-center gap-2">
                     <CheckCircle size={18} className="text-green-400" />
-                    <span className="text-white font-medium">Enrolled</span>
+                    <span className="text-[#1A2134] font-medium">Enrolled</span>
                   </div>
                   
-                  <button 
-                    onClick={() => setSelectedStudent(adm)}
-                    className="bg-[#F5C300] text-[#370E62] px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-white transition-colors"
-                  >
-                    Review
-                  </button>
+                  <div className="w-full sm:w-auto flex justify-end mt-2 sm:mt-0">
+                    <button 
+                      onClick={() => setSelectedStudent(adm)}
+                      className="bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white px-6 py-2 sm:px-4 sm:py-1.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity shadow-md w-full sm:w-auto"
+                    >
+                      Review
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -96,58 +98,58 @@ const Admissions = () => {
       </div>
 
       {selectedStudent && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`w-full max-w-lg p-6 rounded-2xl ${glassmorphicStyles.dark} border border-white/20 shadow-2xl relative`}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className={`w-full max-w-lg p-6 rounded-2xl bg-white border border-[#C0BEC5]/30 shadow-2xl relative overflow-y-auto max-h-[90vh]`}>
             <button 
               onClick={() => setSelectedStudent(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-[#373F52] hover:text-[#7B0771] transition-colors"
             >
               <X size={24} />
             </button>
             
-            <h2 className="text-2xl font-bold text-[#F5C300] mb-6 border-b border-white/10 pb-4">
+            <h2 className="text-2xl font-bold text-[#1A2134] mb-6 border-b border-[#C0BEC5]/30 pb-4">
               Student Review
             </h2>
             
-            <div className="space-y-4 text-gray-300">
+            <div className="space-y-4 text-[#373F52]">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Full Name</p>
-                  <p className="font-semibold text-white">{selectedStudent.full_name || selectedStudent.username}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.full_name || selectedStudent.username}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Student ID</p>
-                  <p className="font-semibold text-white">{selectedStudent.student_id}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.student_id}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-semibold text-white">{selectedStudent.email || 'N/A'}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.email || 'N/A'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Phone / Username</p>
-                  <p className="font-semibold text-white">{selectedStudent.username || 'N/A'}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.username || 'N/A'}</p>
                 </div>
                 <div className="col-span-2">
                   <p className="text-sm text-gray-500">Address</p>
-                  <p className="font-semibold text-white">{selectedStudent.address || 'N/A'}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.address || 'N/A'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Guardian Name</p>
-                  <p className="font-semibold text-white">{selectedStudent.guardian_name || 'N/A'}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.guardian_name || 'N/A'}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Guardian Phone</p>
-                  <p className="font-semibold text-white">{selectedStudent.guardian_mobile_no || 'N/A'}</p>
+                  <p className="font-semibold text-[#1A2134]">{selectedStudent.guardian_mobile_no || 'N/A'}</p>
                 </div>
                 <div className="col-span-2">
                   <p className="text-sm text-gray-500">Course Availing</p>
-                  <p className="font-semibold text-[#F5C300] text-lg">{selectedStudent.course_name || selectedStudent.course_availing}</p>
+                  <p className="font-semibold text-[#7B0771] text-lg">{selectedStudent.course_name || selectedStudent.course_availing}</p>
                 </div>
               </div>
               
               <button 
                 onClick={() => setSelectedStudent(null)}
-                className="w-full bg-[#F5C300] text-[#370E62] font-bold py-3 rounded-xl hover:bg-[#FFD700] transition-colors mt-6 flex justify-center items-center"
+                className="w-full bg-white border border-[#C0BEC5]/50 text-[#1A2134] font-bold py-3 rounded-xl hover:bg-gray-50 transition-colors mt-6 flex justify-center items-center shadow-sm"
               >
                 Close Review
               </button>

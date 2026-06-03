@@ -136,7 +136,7 @@ const NotificationBell = ({ role, userId }) => {
             <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontWeight: '600', fontSize: '0.95rem', color: 'var(--text-main, white)' }}>Notifications</span>
               {unreadCount > 0 && (
-                <button onClick={markAllRead} style={{ background: 'none', border: 'none', color: 'var(--primary-yellow, #F5C300)', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <button onClick={markAllRead} style={{ background: 'none', border: 'none', color: 'var(--magenta)', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <CheckCheck size={14} /> Mark all read
                 </button>
               )}
@@ -162,7 +162,7 @@ const NotificationBell = ({ role, userId }) => {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                     <div>
                       <div style={{ fontWeight: notif.is_read ? '400' : '600', fontSize: '0.88rem', marginBottom: '4px', color: 'var(--text-main, white)' }}>
-                        {!notif.is_read && <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--primary-yellow, #F5C300)', display: 'inline-block', marginRight: '8px' }} />}
+                        {!notif.is_read && <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--magenta)', display: 'inline-block', marginRight: '8px' }} />}
                         {notif.title}
                       </div>
                       <div style={{ fontSize: '0.78rem', color: 'var(--text-muted, rgba(255,255,255,0.7))' }}>{notif.message}</div>

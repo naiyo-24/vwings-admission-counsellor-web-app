@@ -54,12 +54,12 @@ const CommissionSlips = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-white">Payout Slips</h1>
+      <h1 className="text-2xl font-bold text-[#1A2134]">Payout Slips</h1>
       
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 text-[#F5C300] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#C0BEC5] animate-spin" />
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-12 text-red-400">
@@ -67,33 +67,33 @@ const CommissionSlips = () => {
             <p>{error}</p>
           </div>
         ) : commissions.length === 0 ? (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-[#373F52]">
             <p>No commission slips have been generated for you yet.</p>
           </div>
         ) : (
           <div className="space-y-4">
             {commissions.map((slip) => (
-              <div key={slip.id} className="flex flex-col md:flex-row justify-between items-center p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div key={slip.id} className="flex flex-col md:flex-row justify-between items-center p-4 rounded-xl bg-white/40 border border-[#C0BEC5]/30 hover:bg-white/60 transition-colors">
                 <div className="flex items-center gap-4 w-full md:w-auto mb-4 md:mb-0">
-                  <div className="p-3 bg-[#370E62]/50 rounded-lg text-[#F5C300]">
+                  <div className="p-3 bg-[#1A2134]/50 rounded-lg text-[#C0BEC5]">
                     <FileText size={24} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">Payout: {slip.payout_no}</h3>
-                    <p className="text-sm text-gray-400">Date: {new Date(slip.created_at).toLocaleDateString()}</p>
-                    <p className="text-sm text-gray-400">Reference: {slip.reference_no || 'N/A'}</p>
-                    <p className="text-sm text-[#F5C300] font-bold">Amount: ₹{slip.amount}</p>
+                    <h3 className="text-lg font-bold text-[#1A2134]">Payout: {slip.payout_no}</h3>
+                    <p className="text-sm text-[#373F52]">Date: {new Date(slip.created_at).toLocaleDateString()}</p>
+                    <p className="text-sm text-[#373F52]">Reference: {slip.reference_no || 'N/A'}</p>
+                    <p className="text-sm text-[#C0BEC5] font-bold">Amount: ₹{slip.amount}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-between w-full md:w-auto gap-8">
                   <div className="text-right hidden sm:block">
-                    <p className="text-sm text-gray-400">Status</p>
+                    <p className="text-sm text-[#373F52]">Status</p>
                     <p className="text-green-400 font-medium">{slip.status}</p>
                   </div>
                   <button 
                     onClick={() => handleDownload(slip.id)}
-                    className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-colors border border-white/20"
+                    className="flex items-center gap-2 bg-white/60 hover:bg-white/20 text-[#1A2134] px-4 py-2 rounded-lg transition-colors border border-white/20"
                   >
                     <Download size={18} /> Download PDF
                   </button>

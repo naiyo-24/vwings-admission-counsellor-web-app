@@ -11,7 +11,7 @@ const WindStreak = ({ top, delay, duration, width }) => (
       top: top,
       width: width,
       height: '3px',
-      background: 'rgba(255, 255, 255, 0.5)',
+      background: '#7B0771',
       borderRadius: '2px',
       right: '50%'
     }}
@@ -46,7 +46,7 @@ const SplashScreen = ({ onComplete }) => {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'var(--background)',
+        background: 'radial-gradient(circle at center, #FFFFFF 0%, #F5F5F7 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -95,10 +95,10 @@ const SplashScreen = ({ onComplete }) => {
               alt="VWings24x7 Logo" 
               style={{ width: '120px', height: '120px', objectFit: 'contain' }} 
             />
-            <h1 style={{ color: 'var(--primary-yellow)', fontSize: '48px', fontWeight: '800', marginTop: '16px', letterSpacing: '2px' }}>
+            <h1 style={{ fontSize: '48px', fontWeight: '900', marginTop: '16px', letterSpacing: '2px', background: 'linear-gradient(135deg, #7B0771 0%, #9E161B 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               VWings24x7
             </h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '20px', marginTop: '12px', letterSpacing: '1px' }}>
+            <p style={{ color: '#1A2134', fontSize: '20px', marginTop: '12px', letterSpacing: '1px', fontWeight: '600' }}>
               Your Wings to the Future ✈️
             </p>
           </motion.div>

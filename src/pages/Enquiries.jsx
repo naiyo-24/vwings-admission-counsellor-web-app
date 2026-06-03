@@ -133,19 +133,19 @@ const Enquiries = () => {
 
   const getStatusColor = (status) => {
     const s = status?.toLowerCase();
-    if (s === 'pending' || s === 'new') return 'bg-blue-500/20 text-blue-300';
-    if (s === 'contacted' || s === 'in progress') return 'bg-yellow-500/20 text-yellow-300';
-    if (s === 'converted') return 'bg-green-500/20 text-green-300';
-    return 'bg-gray-500/20 text-gray-300';
+    if (s === 'pending' || s === 'new') return 'bg-blue-100 text-blue-700';
+    if (s === 'contacted' || s === 'in progress') return 'bg-yellow-100 text-yellow-700';
+    if (s === 'converted') return 'bg-green-100 text-green-700';
+    return 'bg-gray-100 text-gray-700';
   };
 
   return (
     <div className="space-y-6 relative">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-2xl font-bold text-white">Student Enquiries</h1>
+        <h1 className="text-2xl font-bold text-[#1A2134]">Student Enquiries</h1>
         <button 
           onClick={() => setShowModal(true)}
-          className="bg-gradient-to-r from-[#F5C300] to-[#FFD700] text-[#370E62] font-bold py-2 px-4 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity"
+          className="bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-2 px-4 rounded-xl flex items-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
         >
           <Plus size={20} /> New Enquiry
         </button>
@@ -154,21 +154,21 @@ const Enquiries = () => {
       <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#373F52]" size={20} />
             <input 
               type="text" 
               placeholder="Search enquiries..." 
-              className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-white focus:outline-none focus:border-[#F5C300] transition-colors"
+              className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl pl-10 pr-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5] transition-colors"
             />
           </div>
-          <button className="flex items-center gap-2 bg-white/5 border border-white/10 text-white py-2 px-4 rounded-xl hover:bg-white/10 transition-colors">
+          <button className="flex items-center gap-2 bg-white/40 border border-[#C0BEC5]/30 text-[#1A2134] py-2 px-4 rounded-xl hover:bg-white/60 transition-colors">
             <Filter size={20} /> Filter
           </button>
         </div>
 
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="w-8 h-8 text-[#F5C300] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#C0BEC5] animate-spin" />
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-12 text-red-400">
@@ -176,14 +176,14 @@ const Enquiries = () => {
             <p>{error}</p>
           </div>
         ) : enquiries.length === 0 ? (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-[#373F52]">
             <p>No enquiries found.</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-white">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full text-left text-[#1A2134] whitespace-nowrap min-w-[700px]">
               <thead>
-                <tr className="border-b border-white/10 text-gray-400">
+                <tr className="border-b border-[#C0BEC5]/30 text-[#373F52]">
                   <th className="pb-3 font-medium">ID</th>
                   <th className="pb-3 font-medium">Student Name</th>
                   <th className="pb-3 font-medium">Interested Course</th>
@@ -194,11 +194,11 @@ const Enquiries = () => {
               </thead>
               <tbody>
                 {enquiries.map((enq) => (
-                  <tr key={enq.enquiry_id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <tr key={enq.enquiry_id} className="border-b border-white/5 hover:bg-white/40 transition-colors">
                     <td className="py-4 text-sm">{enq.enquiry_id}</td>
                     <td className="py-4 font-medium">{enq.student_name}</td>
-                    <td className="py-4 text-gray-300">{enq.course_name || enq.course_id}</td>
-                    <td className="py-4 text-gray-300">
+                    <td className="py-4 text-[#373F52]">{enq.course_name || enq.course_id}</td>
+                    <td className="py-4 text-[#373F52]">
                       {new Date(enq.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                     <td className="py-4">
@@ -210,13 +210,13 @@ const Enquiries = () => {
                       <select 
                         value={enq.status || 'pending'} 
                         onChange={(e) => handleStatusChange(enq.enquiry_id, e.target.value)}
-                        className="bg-white/5 border border-white/10 text-[#F5C300] rounded-lg px-2 py-1 focus:outline-none focus:border-[#F5C300] transition-colors text-sm font-medium cursor-pointer"
+                        className="bg-white/60 border border-[#C0BEC5]/50 text-[#1A2134] rounded-lg px-2 py-1 focus:outline-none focus:border-[#7B0771] transition-colors text-sm font-medium cursor-pointer shadow-sm"
                       >
-                        <option value="pending" className="bg-[#370E62] text-white">Pending</option>
-                        <option value="contacted" className="bg-[#370E62] text-white">Contacted</option>
-                        <option value="in progress" className="bg-[#370E62] text-white">In Progress</option>
-                        <option value="converted" className="bg-[#370E62] text-white">Converted</option>
-                        <option value="cancelled" className="bg-[#370E62] text-white">Cancelled</option>
+                        <option value="pending" className="bg-white text-[#1A2134]">Pending</option>
+                        <option value="contacted" className="bg-white text-[#1A2134]">Contacted</option>
+                        <option value="in progress" className="bg-white text-[#1A2134]">In Progress</option>
+                        <option value="converted" className="bg-white text-[#1A2134]">Converted</option>
+                        <option value="cancelled" className="bg-white text-[#1A2134]">Cancelled</option>
                       </select>
                     </td>
                   </tr>
@@ -228,47 +228,47 @@ const Enquiries = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`w-full max-w-md p-6 rounded-2xl ${glassmorphicStyles.dark} border border-white/20 shadow-2xl relative`}>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className={`w-full max-w-md p-6 rounded-2xl bg-white border border-[#C0BEC5]/30 shadow-2xl relative`}>
             <button 
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-[#373F52] hover:text-[#7B0771] transition-colors"
             >
               <X size={24} />
             </button>
             
-            <h2 className="text-2xl font-bold text-[#F5C300] mb-6">New Enquiry</h2>
+            <h2 className="text-2xl font-bold text-[#1A2134] mb-6">New Enquiry</h2>
             
             <form onSubmit={handleCreateEnquiry} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Student Name</label>
+                <label className="block text-sm font-medium text-[#373F52] mb-1">Student Name</label>
                 <input 
                   type="text" 
                   required
                   value={formData.student_name}
                   onChange={(e) => setFormData({...formData, student_name: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#F5C300]"
+                  className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Phone Number</label>
+                <label className="block text-sm font-medium text-[#373F52] mb-1">Phone Number</label>
                 <input 
                   type="tel" 
                   required
                   value={formData.student_phn_no}
                   onChange={(e) => setFormData({...formData, student_phn_no: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#F5C300]"
+                  className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Interested Course</label>
+                <label className="block text-sm font-medium text-[#373F52] mb-1">Interested Course</label>
                 <select 
                   required
                   value={formData.course_id}
                   onChange={(e) => setFormData({...formData, course_id: e.target.value})}
-                  className="w-full bg-[#370E62] border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#F5C300]"
+                  className="w-full bg-white border border-[#C0BEC5]/50 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771]"
                 >
                   <option value="">Select a course</option>
                   {courses.map(c => (
@@ -279,23 +279,23 @@ const Enquiries = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Counsellor ID</label>
+                  <label className="block text-sm font-medium text-[#373F52] mb-1">Counsellor ID</label>
                   <input 
                     type="text" 
                     required
                     disabled
                     value={formData.counsellor_id}
-                    className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-2 text-gray-400 cursor-not-allowed"
+                    className="w-full bg-gray-100 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#373F52] cursor-not-allowed font-medium"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Admission Code</label>
+                  <label className="block text-sm font-medium text-[#373F52] mb-1">Admission Code</label>
                   {admissionCodes.length > 0 ? (
                     <select 
                       required
                       value={formData.admission_code}
                       onChange={(e) => setFormData({...formData, admission_code: e.target.value})}
-                      className="w-full bg-[#370E62] border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#F5C300]"
+                      className="w-full bg-white border border-[#C0BEC5]/50 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#7B0771]"
                     >
                       {admissionCodes.map(code => (
                         <option key={code.admission_code} value={code.admission_code}>{code.admission_code}</option>
@@ -307,7 +307,7 @@ const Enquiries = () => {
                       required
                       value={formData.admission_code}
                       onChange={(e) => setFormData({...formData, admission_code: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#F5C300]"
+                      className="w-full bg-white/40 border border-[#C0BEC5]/30 rounded-xl px-4 py-2 text-[#1A2134] focus:outline-none focus:border-[#C0BEC5]"
                       placeholder="Enter code"
                     />
                   )}
@@ -317,7 +317,7 @@ const Enquiries = () => {
               <button 
                 type="submit" 
                 disabled={submitting}
-                className="w-full bg-[#F5C300] text-[#370E62] font-bold py-3 rounded-xl hover:bg-[#FFD700] transition-colors mt-4 flex justify-center items-center"
+                className="w-full bg-gradient-to-r from-[#7B0771] to-[#9E161B] text-white font-bold py-3 rounded-xl hover:opacity-90 transition-opacity mt-4 flex justify-center items-center shadow-md disabled:opacity-50"
               >
                 {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Submit Enquiry"}
               </button>

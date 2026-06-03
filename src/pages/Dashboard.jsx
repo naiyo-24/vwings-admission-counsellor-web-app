@@ -82,7 +82,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <Loader2 className="w-10 h-10 text-[#F5C300] animate-spin" />
+        <Loader2 className="w-10 h-10 text-[#C0BEC5] animate-spin" />
       </div>
     );
   }
@@ -111,31 +111,31 @@ const Dashboard = () => {
         {stats.map((stat, i) => (
           <div key={i} className={`p-6 rounded-2xl ${glassmorphicStyles.card} flex flex-col`}>
             <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-xl bg-white/5 ${stat.color}`}>
+              <div className={`p-3 rounded-xl bg-white/40 ${stat.color}`}>
                 <stat.icon size={24} />
               </div>
             </div>
-            <h3 className="text-gray-300 font-medium">{stat.label}</h3>
-            <p className="text-3xl font-bold text-white mt-1 mb-4">{stat.value}</p>
-            <Link to={stat.path} className="flex items-center text-sm text-[#F5C300] hover:text-white transition-colors mt-auto w-fit">
+            <h3 className="text-[#373F52] font-medium">{stat.label}</h3>
+            <p className="text-3xl font-bold text-[#1A2134] mt-1 mb-4">{stat.value}</p>
+            <Link to={stat.path} className="flex items-center text-sm text-[#7B0771] hover:text-[#9E161B] transition-colors mt-auto w-fit">
               View Details <ArrowRight size={16} className="ml-1" />
             </Link>
           </div>
         ))}
       </div>
 
-      <div className={`p-6 rounded-2xl ${glassmorphicStyles.dark}`}>
-        <h2 className="text-xl font-bold text-white mb-6">Recent Activity</h2>
+      <div className={`p-6 rounded-2xl ${glassmorphicStyles.card}`}>
+        <h2 className="text-xl font-bold text-[#1A2134] mb-6">Recent Activity</h2>
         {data.recentEnquiries.length === 0 ? (
-          <p className="text-gray-400">No recent activity found.</p>
+          <p className="text-[#373F52]">No recent activity found.</p>
         ) : (
           <div className="space-y-4">
             {data.recentEnquiries.map((enq) => (
-              <div key={enq.enquiry_id} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                <div className="w-2 h-2 rounded-full bg-[#F5C300]"></div>
+              <div key={enq.enquiry_id} className="flex items-center gap-4 p-4 rounded-xl bg-white/40 border border-[#C0BEC5]/30">
+                <div className="w-2 h-2 rounded-full bg-[#7B0771]"></div>
                 <div>
-                  <p className="text-white font-medium">New Enquiry from {enq.student_name}</p>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-[#1A2134] font-medium">New Enquiry from {enq.student_name}</p>
+                  <p className="text-[#373F52] text-sm">
                     Interested in {enq.course_name || enq.course_id} • {getTimeAgo(enq.created_at)}
                   </p>
                 </div>

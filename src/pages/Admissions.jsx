@@ -11,7 +11,7 @@ const Admissions = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('https://appbackend.vwings247.me/api/students/get-all');
+        const response = await fetch('http://localhost:8000/api/students/get-all');
         if (!response.ok) throw new Error('Failed to fetch students');
         const data = await response.json();
 

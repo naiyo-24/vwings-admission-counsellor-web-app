@@ -19,7 +19,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('https://appbackend.vwings247.me/api/courses/get-all');
+        const response = await fetch('http://localhost:8000/api/courses/get-all');
         if (!response.ok) throw new Error('Failed to fetch courses');
         const data = await response.json();
         setCourses(data);
@@ -57,7 +57,7 @@ const Courses = () => {
   if (selectedCourse) {
     const courseIndex = courses.findIndex(c => c.course_id === selectedCourse.course_id);
     const imgUrl = selectedCourse.course_photo
-      ? (selectedCourse.course_photo.startsWith('http') ? selectedCourse.course_photo : `https://appbackend.vwings247.me/${selectedCourse.course_photo.replace(/\\/g, '/')}`)
+      ? (selectedCourse.course_photo.startsWith('http') ? selectedCourse.course_photo : `http://localhost:8000/${selectedCourse.course_photo.replace(/\\/g, '/')}`)
       : fallbackImages[courseIndex % fallbackImages.length];
 
     return (
@@ -158,7 +158,7 @@ const Courses = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course, i) => {
           const imgUrl = course.course_photo
-            ? (course.course_photo.startsWith('http') ? course.course_photo : `https://appbackend.vwings247.me/${course.course_photo.replace(/\\/g, '/')}`)
+            ? (course.course_photo.startsWith('http') ? course.course_photo : `http://localhost:8000/${course.course_photo.replace(/\\/g, '/')}`)
             : fallbackImages[i % fallbackImages.length];
 
           const duration = course.general_data?.duration || 'Variable';

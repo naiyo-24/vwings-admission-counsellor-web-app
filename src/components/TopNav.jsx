@@ -25,7 +25,7 @@ const TopNav = ({ toggleSidebar }) => {
 
   const getProfileImageUrl = (path) => {
     if (!path) return null;
-    return path.startsWith('http') ? path : `https://appbackend.vwings247.me/${path}`;
+    return path.startsWith('http') ? path : `http://localhost:8000/${path}`;
   };
 
   const getInitials = (name) => {

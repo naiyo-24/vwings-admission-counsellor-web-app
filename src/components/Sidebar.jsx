@@ -54,7 +54,7 @@ const Sidebar = ({ onLogout, isOpen, onClose }) => {
               <div className="w-12 h-12 rounded-full border-2 border-[#C0BEC5] overflow-hidden bg-[#1A2134] shrink-0">
                 {counsellorData.profile_photo ? (
                   <img
-                    src={counsellorData.profile_photo.startsWith('http') ? counsellorData.profile_photo : `https://appbackend.vwings247.me/${counsellorData.profile_photo}`}
+                    src={counsellorData.profile_photo.startsWith('http') ? counsellorData.profile_photo : `http://localhost:8000/${counsellorData.profile_photo}`}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />

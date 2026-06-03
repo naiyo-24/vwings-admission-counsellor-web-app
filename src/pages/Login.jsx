@@ -19,7 +19,7 @@ const Login = ({ onLogin }) => {
         formData.append('email', email);
         formData.append('password', password);
 
-        const response = await fetch('https://appbackend.vwings247.me/api/counsellors/login', {
+        const response = await fetch('http://localhost:8000/api/counsellors/login', {
           method: 'POST',
           body: formData,
         });

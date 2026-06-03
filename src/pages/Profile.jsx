@@ -69,7 +69,7 @@ const Profile = () => {
         formDataToSend.append('profile_photo', file);
       }
 
-      const response = await fetch(`https://appbackend.vwings247.me/api/counsellors/put-by/${profile.counsellor_id}`, {
+      const response = await fetch(`http://localhost:8000/api/counsellors/put-by/${profile.counsellor_id}`, {
         method: 'PUT',
         body: formDataToSend
       });
@@ -97,7 +97,7 @@ const Profile = () => {
 
   const getProfileImageUrl = (path) => {
     if (!path) return null;
-    return path.startsWith('http') ? path : `https://appbackend.vwings247.me/${path}`;
+    return path.startsWith('http') ? path : `http://localhost:8000/${path}`;
   };
 
   if (loading) {

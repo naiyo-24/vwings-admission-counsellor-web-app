@@ -42,7 +42,7 @@ const Enquiries = () => {
 
   const fetchAdmissionCodes = async (counsellorId) => {
     try {
-      const response = await fetch('https://appbackend.vwings247.me/api/admission-codes/get-all');
+      const response = await fetch('http://localhost:8000/api/admission-codes/get-all');
       if (response.ok) {
         const data = await response.json();
         const filteredCodes = counsellorId ? data.filter(c => c.counsellor_id === counsellorId) : [];
@@ -61,7 +61,7 @@ const Enquiries = () => {
   const fetchEnquiries = async (counsellorId) => {
     try {
       setLoading(true);
-      const response = await fetch('https://appbackend.vwings247.me/api/admission-enquiries/get-all');
+      const response = await fetch('http://localhost:8000/api/admission-enquiries/get-all');
       if (!response.ok) throw new Error('Failed to fetch enquiries');
       const data = await response.json();
 
@@ -79,7 +79,7 @@ const Enquiries = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('https://appbackend.vwings247.me/api/courses/get-all');
+      const response = await fetch('http://localhost:8000/api/courses/get-all');
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
@@ -93,7 +93,7 @@ const Enquiries = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const response = await fetch('https://appbackend.vwings247.me/api/admission-enquiries/create', {
+      const response = await fetch('http://localhost:8000/api/admission-enquiries/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -117,7 +117,7 @@ const Enquiries = () => {
 
   const handleStatusChange = async (enquiryId, newStatus) => {
     try {
-      const response = await fetch(`https://appbackend.vwings247.me/api/admission-enquiries/update-status/${enquiryId}`, {
+      const response = await fetch(`http://localhost:8000/api/admission-enquiries/update-status/${enquiryId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })

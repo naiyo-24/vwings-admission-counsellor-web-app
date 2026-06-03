@@ -35,9 +35,9 @@ const Dashboard = () => {
         }
 
         const [enqRes, admRes, commRes] = await Promise.all([
-          fetch('https://appbackend.vwings247.me/api/admission-enquiries/get-all'),
-          fetch('https://appbackend.vwings247.me/api/students/get-all'),
-          fetch(`https://appbackend.vwings247.me/api/commissions/payouts${counsellorId ? `?counsellor_id=${counsellorId}` : ''}`)
+          fetch('http://localhost:8000/api/admission-enquiries/get-all'),
+          fetch('http://localhost:8000/api/students/get-all'),
+          fetch(`http://localhost:8000/api/commissions/payouts${counsellorId ? `?counsellor_id=${counsellorId}` : ''}`)
         ]);
 
         if (!enqRes.ok || !admRes.ok || !commRes.ok) {

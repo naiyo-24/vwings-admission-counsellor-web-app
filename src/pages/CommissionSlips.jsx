@@ -22,7 +22,7 @@ const CommissionSlips = () => {
 
         if (!counsellorId) return;
 
-        const response = await fetch(`https://appbackend.vwings247.me/api/commissions/payouts?counsellor_id=${counsellorId}`);
+        const response = await fetch(`http://localhost:8000/api/commissions/payouts?counsellor_id=${counsellorId}`);
         if (!response.ok) throw new Error('Failed to fetch payout slips');
         const data = await response.json();
 
@@ -49,7 +49,7 @@ const CommissionSlips = () => {
   };
 
   const handleDownload = (payoutId) => {
-    window.open(`https://appbackend.vwings247.me/api/commissions/payouts/download/${payoutId}`, '_blank');
+    window.open(`http://localhost:8000/api/commissions/payouts/download/${payoutId}`, '_blank');
   };
 
   return (
